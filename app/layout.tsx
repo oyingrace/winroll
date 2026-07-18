@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "WinRoll — Dice predictions on Celo",
   description: "Predict the roll, stake USDT, win instantly. A provably fair dice game on Celo.",
+  other: {
+    "talentapp:project_verification":
+      "88d6d86872b369921837a1ebc3e9f2253c48172f2a8b130e8af33012c65d949581f7e628f81e287c7486abf256f4eaff9b771c53c01a6c1c2a479d400f980aaf",
+  },
 };
 
 export default function RootLayout({
