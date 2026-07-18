@@ -11,15 +11,12 @@ export function useBetHistory() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!isConnected || !address) {
-      setBets([]);
-      return;
-    }
+    if (!isConnected || !address) return;
 
     let cancelled = false;
-    setIsLoading(true);
 
     (async () => {
+      setIsLoading(true);
       try {
         const res = await walletFetch(address, "/api/user/bets?limit=20");
         const data = await res.json();
@@ -36,5 +33,5 @@ export function useBetHistory() {
     };
   }, [address, isConnected]);
 
-  return { bets, isLoading };
+  return { bets: isConnected ? bets : [], isLoading };
 }
