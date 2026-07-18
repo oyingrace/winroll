@@ -31,9 +31,10 @@ forge build
 
 ## Deploy
 
+Copy `.env.example` to `.env` and fill in the values, then:
+
 ```bash
-DEPLOYER_PRIVATE_KEY=0x... \
-STAKE_TOKEN_ADDRESS=0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e \
+source .env
 forge script script/Deploy.s.sol --rpc-url celo --broadcast --verify
 ```
 

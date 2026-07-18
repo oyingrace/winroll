@@ -30,7 +30,7 @@ winroll is an on-chain dice-prediction game built as a [MiniPay](https://www.ope
 
 ```bash
 npm install
-# create .env.local with the variables below
+cp .env.example .env.local   # fill in the values
 npm run dev
 ```
 
@@ -46,7 +46,7 @@ To place a bet, the player calls `placeBet` on `WinRollGame` (approve + placeBet
 
 ## Configuration
 
-Set these in `.env.local` (this repo intentionally doesn't commit a `.env.example` — see `.gitignore`):
+Copy `.env.example` to `.env.local` and set:
 
 | Variable | Description |
 | --- | --- |
