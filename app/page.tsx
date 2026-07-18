@@ -11,13 +11,14 @@ import { ProvablyFairBadge } from '@/components/ProvablyFairBadge';
 import { Footer } from '@/components/Footer';
 import { useRound } from '@/lib/web3/hooks/useRound';
 import { BET_TYPES, getMultiplier } from '@/lib/utils/betTypes';
+import type { RoundWindow, PlacedBet } from '@/lib/types';
 
 export default function Home() {
-  const { round, now } = useRound();
+  const { round, now } = useRound() as { round: RoundWindow | null; now: number };
   const [betType, setBetType] = useState(BET_TYPES.OVER);
   const [sum, setSum] = useState(7);
   const [amount, setAmount] = useState('5');
-  const [lastBet, setLastBet] = useState(null);
+  const [lastBet, setLastBet] = useState<PlacedBet | null>(null);
 
   const multiplier = getMultiplier(betType, betType === BET_TYPES.EXACT_SUM ? [sum] : []);
   const potentialWinnings = multiplier ? (Number(amount) * multiplier).toFixed(2) : '0.00';
