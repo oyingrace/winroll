@@ -2,7 +2,7 @@
 // boundary, accepts bets until BETTING_CUTOFF_SECONDS before it ends, and is
 // revealed at the end of the interval.
 
-export const ROUND_INTERVAL_MINUTES = Number(process.env.NEXT_PUBLIC_ROUND_INTERVAL_MINUTES) || 30;
+export const ROUND_INTERVAL_MINUTES = Number(process.env.NEXT_PUBLIC_ROUND_INTERVAL_MINUTES) || 60;
 export const BETTING_CUTOFF_SECONDS = Number(process.env.NEXT_PUBLIC_BETTING_CUTOFF_SECONDS) || 60;
 
 function floorToInterval(date, intervalMinutes) {
