@@ -8,7 +8,7 @@ winroll is an on-chain dice-prediction game built as a [MiniPay](https://www.ope
 - **On-chain stakes** — bets are staked into the `WinRollGame` contract in USDT.
 - **Provably fair rolls** — every round is committed (hash published) before betting opens and revealed (seed published) after betting closes, so no one — including the operator — can choose a roll after seeing the bets. See [`/how-it-works`](./app/how-it-works).
 - **Five bet types** — exact sum, over 7, under 7, lucky seven, and double, each with fixed odds derived from real two-dice probabilities.
-- **Rolling rounds** — a new round every 30 minutes by default.
+- **Rolling rounds** — a new round every hour by default.
 
 ## Tech stack
 
@@ -40,7 +40,7 @@ Open the app inside MiniPay (or MiniPay's Site Tester) to use the wallet flow. I
 
 winroll runs inside the MiniPay dapp browser, which injects an EIP-1193 provider at `window.ethereum` (`isMiniPay === true`). On load the app auto-connects that wallet and identifies the player by their Celo address — there is no sign-up step.
 
-Rounds run on a fixed 30-minute interval (`app/lib/utils/rounds.js`) — the cron publishes results for a round every 30 minutes. Each round is opened on-chain by the `winroll-cron` service via a commit-reveal scheme: it publishes only the hash of a random seed when the round opens, and the actual seed (which the contract uses to derive the roll) only after betting closes. See [`app/how-it-works/page.tsx`](./app/how-it-works/page.tsx) for the full explanation, and [`contracts/README.md`](./contracts/README.md) for the on-chain mechanics.
+Rounds run on a fixed 1-hour interval (`app/lib/utils/rounds.js`) — the cron publishes results for a round every hour. Each round is opened on-chain by the `winroll-cron` service via a commit-reveal scheme: it publishes only the hash of a random seed when the round opens, and the actual seed (which the contract uses to derive the roll) only after betting closes. See [`app/how-it-works/page.tsx`](./app/how-it-works/page.tsx) for the full explanation, and [`contracts/README.md`](./contracts/README.md) for the on-chain mechanics.
 
 To place a bet, the player calls `placeBet` on `WinRollGame` (approve + placeBet), signing with their MiniPay wallet. The server verifies the on-chain `BetPlaced` event before recording the bet, so winnings can never be forged from the client (`app/api/bets/place/route.js`).
 
@@ -54,7 +54,7 @@ Copy `.env.example` to `.env.local` and set:
 | `NEXT_PUBLIC_WINROLL_CONTRACT_ADDRESS` | Deployed `WinRollGame` address |
 | `NEXT_PUBLIC_USDT_ADDRESS` | USDT token address on Celo (defaults to native USD₮) |
 | `CELO_RPC_URL` | Optional custom RPC for server-side verification |
-| `NEXT_PUBLIC_ROUND_INTERVAL_MINUTES` | Round length in minutes (default `30`) |
+| `NEXT_PUBLIC_ROUND_INTERVAL_MINUTES` | Round length in minutes (default `60`) |
 | `NEXT_PUBLIC_BETTING_CUTOFF_SECONDS` | Seconds before reveal when betting closes (default `60`) |
 | `NEXT_PUBLIC_MIN_BET_USDT` / `NEXT_PUBLIC_MAX_BET_USDT` | Stake limits (default `1` / `1000`) |
 
