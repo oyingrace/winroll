@@ -11,7 +11,7 @@ export function StakeInput({ amount, setAmount, min = 1, max = 1000, potentialWi
         type="number"
         min={min}
         max={max}
-        step="0.1"
+        step={min < 1 ? 0.01 : 0.1}
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-lg font-mono outline-none focus:border-emerald-500"
